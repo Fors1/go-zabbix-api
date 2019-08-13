@@ -40,7 +40,7 @@ type ServiceAlarm struct {
 
 // GetServices gets zabbix IT Services
 func (w *APIWrapper) GetServices(params map[string]interface{}) (services interface{}, err error) {
-	req := requestConstruct()
+	req := requestConstruct("service.get")
 	req.Params = params
 	res, err := req.Send(w)
 	if err != nil {

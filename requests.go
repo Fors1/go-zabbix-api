@@ -27,8 +27,8 @@ type zabbixError struct {
 	Data    string `json:"data"`
 }
 
-func requestConstruct() genericRequest {
-	return genericRequest{JSONRPC: "2.0", ID: 1}
+func requestConstruct(method string) genericRequest {
+	return genericRequest{JSONRPC: "2.0", ID: 1, Method: method}
 }
 
 func (req *genericRequest) Send(w *APIWrapper) (resp genericResponse, err error) {
