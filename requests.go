@@ -19,6 +19,12 @@ type genericResponse struct {
 	JSONRPC string      `json:"jsonrpc"`
 	Result  interface{} `json:"result"`
 	ID      uint        `json:"id"`
+	Error   zabbixError `json:"error"`
+}
+type zabbixError struct {
+	Code    string `json:"code"`
+	Message string `json:"message"`
+	Data    string `json:"data"`
 }
 
 func requestConstruct() genericRequest {
