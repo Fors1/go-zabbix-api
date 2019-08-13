@@ -16,10 +16,10 @@ type genericRequest struct {
 	Auth    string                 `json:"auth"`
 }
 type genericResponse struct {
-	JSONRPC string      `json:"jsonrpc"`
-	Result  string      `json:",string"`
-	ID      uint        `json:"id"`
-	Error   zabbixError `json:"error"`
+	JSONRPC string          `json:"jsonrpc"`
+	Result  json.RawMessage `json:"result"`
+	ID      uint            `json:"id"`
+	Error   zabbixError     `json:"error"`
 }
 type zabbixError struct {
 	Code    int64  `json:"code"`
