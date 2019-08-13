@@ -53,6 +53,7 @@ func (w *APIWrapper) GetServices(params map[string]interface{}) (services []Serv
 		return
 	}
 
-	err = json.Unmarshal([]byte(fmt.Sprintf("%+v", res.Result)), &services)
+	err = json.Unmarshal([]byte(res.Result), &services)
+	fmt.Printf("%+v\n", services)
 	return
 }
