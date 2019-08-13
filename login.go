@@ -61,5 +61,6 @@ func Login(login, password, address string) (w APIWrapper, err error) {
 		err = fmt.Errorf("Error while unmarshalling response: %s", err.Error())
 	}
 	w.Token = result.Result
+	w.Address = address
 	return
 }
