@@ -44,8 +44,7 @@ func (req *genericRequest) Send(w *APIWrapper) (resp genericResponse, err error)
 		err = fmt.Errorf("Error while reading response body: %s", err.Error())
 		return
 	}
-	result := genericResponse{}
-	err = json.Unmarshal(body, &result)
+	err = json.Unmarshal(body, &resp)
 	if err != nil {
 		err = fmt.Errorf("Error while unmarshalling response: %s", err.Error())
 		return
