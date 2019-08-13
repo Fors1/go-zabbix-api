@@ -1,6 +1,9 @@
 package zabbix
 
-import "encoding/json"
+import (
+	"encoding/json"
+	"fmt"
+)
 
 // Service Zabbix object
 type Service struct {
@@ -50,6 +53,6 @@ func (w *APIWrapper) GetServices(params map[string]interface{}) (services []Serv
 		return
 	}
 
-	err = json.Unmarshal([]byte(res.Result.(string)), &services)
+	err = json.Unmarshal([]byte(fmt.Sprintf("%+v", res.Result)), &services)
 	return
 }
