@@ -42,11 +42,13 @@ func (req *genericRequest) Send(w *APIWrapper) (resp genericResponse, err error)
 	body, err := ioutil.ReadAll(httpResp.Body)
 	if err != nil {
 		err = fmt.Errorf("Error while reading response body: %s", err.Error())
+		return
 	}
 	result := genericResponse{}
 	err = json.Unmarshal(body, &result)
 	if err != nil {
 		err = fmt.Errorf("Error while unmarshalling response: %s", err.Error())
+		return
 	}
 	return
 }
