@@ -37,3 +37,15 @@ type ServiceAlarm struct {
 	Clock          uint32
 	Value          uint8
 }
+
+// GetServices gets zabbix IT Services
+func (w *APIWrapper) GetServices(params map[string]interface{}) (services interface{}, err error) {
+	req := requestConstruct()
+	req.Params = params
+	res, err := req.Send(w)
+	if err != nil {
+		return
+	}
+	services = res
+	return
+}
