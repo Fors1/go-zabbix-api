@@ -17,7 +17,7 @@ type genericRequest struct {
 }
 type genericResponse struct {
 	JSONRPC string      `json:"jsonrpc"`
-	Result  []string    `json:"result"`
+	Result  string      `json:"result,string"`
 	ID      uint        `json:"id"`
 	Error   zabbixError `json:"error"`
 }
@@ -26,6 +26,10 @@ type zabbixError struct {
 	Message string `json:"message"`
 	Data    string `json:"data"`
 }
+
+// func (r *genericResponse) UnmarshallJSON(data []byte) error {
+//
+// }
 
 func requestConstruct(method string) genericRequest {
 	return genericRequest{JSONRPC: "2.0", ID: 1, Method: method}

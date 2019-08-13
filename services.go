@@ -53,9 +53,6 @@ func (w *APIWrapper) GetServices(params map[string]interface{}) (services []Serv
 		return
 	}
 	fmt.Println(res.Result)
-	for _, result := range res.Result {
-		err = json.Unmarshal([]byte(result), &services)
-		fmt.Printf("%+v\n", services)
-	}
+	json.Unmarshal([]byte(res.Result), &services)
 	return
 }
