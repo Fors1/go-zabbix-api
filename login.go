@@ -2,6 +2,7 @@ package zabbix
 
 import (
 	"bytes"
+	"crypto/tls"
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
@@ -43,6 +44,7 @@ func Login(login, password, address string) (w APIWrapper, err error) {
 		return
 	}
 	r := bytes.NewReader(reqJSON)
+	http.DefaultTransport.(*http.Transport).TLSClientConfig = &tls.Config{InsecureSkipVerify: true}
 	resp, err := http.Post(address, "application/json-rpc", r)
 	if err != nil {
 		err = fmt.Errorf("Error while making post request: %s", err.Error())
