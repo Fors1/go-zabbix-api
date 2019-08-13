@@ -55,6 +55,5 @@ func (req *genericRequest) Send(w *APIWrapper) (resp genericResponse, err error)
 		err = fmt.Errorf("Error while unmarshalling response: %s", err.Error())
 		return
 	}
-	fmt.Println(string(body))
 	return
 }
