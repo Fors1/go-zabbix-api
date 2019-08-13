@@ -17,7 +17,7 @@ type genericRequest struct {
 }
 type genericResponse struct {
 	JSONRPC string      `json:"jsonrpc"`
-	Result  string      `json:"result"`
+	Result  []string    `json:"result"`
 	ID      uint        `json:"id"`
 	Error   zabbixError `json:"error"`
 }
