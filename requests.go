@@ -22,7 +22,7 @@ type genericResponse struct {
 	Error   zabbixError `json:"error"`
 }
 type zabbixError struct {
-	Code    string `json:"code"`
+	Code    int64  `json:"code"`
 	Message string `json:"message"`
 	Data    string `json:"data"`
 }
