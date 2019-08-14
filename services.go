@@ -64,6 +64,7 @@ func (w *APIWrapper) GetServices(params map[string]interface{}) (services []Serv
 }
 
 //func (s *Service) GetSLA(params map[string]interface{}) () {}
+
 // CreateService creates service and returns ID of it
 func (w *APIWrapper) CreateService(s Service) (int, error) {
 	req := requestConstruct("service.create")
@@ -95,4 +96,22 @@ func (w *APIWrapper) CreateService(s Service) (int, error) {
 		return 0, fmt.Errorf("Error while parsing created service ID returned by Zabbix - %s", err.Error())
 	}
 	return serviceID, nil
+}
+
+//AddDependency links one service to another one
+func (w *APIWrapper) AddDependency(parentServiceID, childServiceID, soft int) error {
+	req := requestConstruct("service.adddependencies")
+	params := make(map[string]interface{})
+	params["serviceid"] = strconv.Itoa(parentServiceID) // Convert to string because zabbix accepts this parameters as strings
+	params["dependsOnServiceid"] = strconv.Itoa(childServiceID)
+	params["soft"] = soft
+	req.Params = params
+	resp, err := req.Send(w)
+	if err != nil {
+		return err
+	}
+	if resp.Error.Code != 0 {
+		return fmt.Errorf("Zabbix Server returned error: %d - %s; %s", resp.Error.Code, resp.Error.Message, resp.Error.Data)
+	}
+	return nil
 }
