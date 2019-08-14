@@ -45,6 +45,7 @@ type Host struct {
 	TLSSubject        string `json:"tls_subject"`
 	TLSPSKIdentity    string `json:"tls_psk_identity"`
 	TLSPSK            string `json:"tls_psk"`
+	AutoCompress      uint8  `json:"auto_compress"`
 }
 
 // HostParams describe supported parameters for hosts
@@ -77,6 +78,35 @@ type HostParams struct {
 	EvalType               uint8                  `json:"evaltype,omitempty"`
 	Tags                   []string               `json:"tags,omitempty"`
 	Filter                 map[string]interface{} `json:"filter,omitempty"`
+	SelectGroups           map[string]interface{} `json:"selectGroups,omitempty"`
+	SelectTags             map[string]interface{} `json:"selectTags,omitempty"`
+	SelectApplications     map[string]interface{} `json:"selectApplications,omitempty"`
+	SelectDiscoveries      map[string]interface{} `json:"selectDiscoveries,omitempty"`
+	SelectDiscoveryRule    map[string]interface{} `json:"selectDiscoveryRule,omitempty"`
+	SelectGraphs           map[string]interface{} `json:"selectGraphs,omitempty"`
+	SelectHostDiscovery    map[string]interface{} `json:"selectHostDiscovery,omitempty"`
+	SelectHTTPTests        map[string]interface{} `json:"selectHttpTests,omitempty"`
+	SelectInterfaces       map[string]interface{} `json:"selectInterfaces,omitempty"`
+	SelectInventory        map[string]interface{} `json:"selectInventory,omitempty"`
+	SelectItems            map[string]interface{} `json:"selectItems,omitempty"`
+	SelectMacros           map[string]interface{} `json:"selectMacros,omitempty"`
+	SelectParentTemplates  map[string]interface{} `json:"selectParentTemplates,omitempty"`
+	SelectScreens          map[string]interface{} `json:"selectScreens,omitempty"`
+	SelectTriggers         map[string]interface{} `json:"selectTriggers,omitempty"`
+	LimitSelects           uint                   `json:"limitSelects,omitempty"`
+	Search                 map[string]interface{} `json:"search,omitempty"`
+	SearchInventory        map[string]interface{} `json:"searchInventory,omitempty"`
+	Sortfield              []string               `json:"sortfield,omitempty"`
+	CountOutput            bool                   `json:"countOutput,omitempty"`
+	Editable               bool                   `json:"editable,omitempty"`
+	ExcludeSearch          bool                   `json:"excludeSearch,omitempty"`
+	Limit                  uint                   `json:"limit,omitempty"`
+	Output                 map[string]interface{} `json:"output,omitempty"`
+	PreserveKeys           bool                   `json:"preservekeys,omitempty"`
+	SearchByAny            bool                   `json:"searchByAny,omitempty"`
+	SearchWildcardsEnabled bool                   `json:"searchWildcardsEnabled,omitempty"`
+	SortOrder              []string               `json:"sortorder,omitempty"`
+	StartSearch            bool                   `json:"startSearch,omitempty"`
 }
 
 // GetHost returns host object from zabbix
