@@ -81,7 +81,7 @@ type HostParams struct {
 }
 
 // GetHost returns host object from zabbix
-func (w *APIWrapper) GetHost(hostParams HostParams) (Host, error) {
+func (w *APIWrapper) GetHost(hostParams HostParams) ([]Host, error) {
 	req := requestConstruct("host.get")
 	b, _ := json.Marshal(hostParams)       //
 	params := make(map[string]interface{}) // this is to convert HostParams to map[string]interface{}. ugly but working
@@ -89,13 +89,13 @@ func (w *APIWrapper) GetHost(hostParams HostParams) (Host, error) {
 	req.Params = params
 	resp, err := req.Send(w)
 	if err != nil {
-		return Host{}, fmt.Errorf("Error while sending request to zabbix - %s", err.Error())
+		return []Host{}, fmt.Errorf("Error while sending request to zabbix - %s", err.Error())
 	}
 	if resp.Error.Code != 0 {
-		return Host{}, fmt.Errorf("Zabbix Server returned error: %d - %s; %s", resp.Error.Code, resp.Error.Message, resp.Error.Data)
+		return []Host{}, fmt.Errorf("Zabbix Server returned error: %d - %s; %s", resp.Error.Code, resp.Error.Message, resp.Error.Data)
 	}
 	fmt.Printf("%+v\n", string(resp.Result))
-	host := Host{}
+	host := []Host{}
 	err = json.Unmarshal(resp.Result, &host)
 	return host, nil
 }
