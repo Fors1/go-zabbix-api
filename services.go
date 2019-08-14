@@ -2,6 +2,9 @@ package zabbix
 
 import (
 	"encoding/json"
+	"fmt"
+
+	"github.com/fatih/structs"
 )
 
 // Service Zabbix object
@@ -53,4 +56,14 @@ func (w *APIWrapper) GetServices(params map[string]interface{}) (services []Serv
 	}
 	json.Unmarshal([]byte(res.Result), &services)
 	return
+}
+
+//func (s *Service) GetSLA(params map[string]interface{}) () {}
+
+func (w *APIWrapper) CreateService(s Service) (int, error) {
+	req := requestConstruct("service.create")
+	params := structs.Map(s)
+	req.Params = params
+	fmt.Printf("%+v\n", req)
+	return 0, nil
 }
