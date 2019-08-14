@@ -3,8 +3,6 @@ package zabbix
 import (
 	"encoding/json"
 	"fmt"
-
-	"github.com/fatih/structs"
 )
 
 // Service Zabbix object
@@ -50,20 +48,45 @@ type ServiceAlarm struct {
 func (w *APIWrapper) GetServices(params map[string]interface{}) (services []Service, err error) {
 	req := requestConstruct("service.get")
 	req.Params = params
-	res, err := req.Send(w)
+	resp, err := req.Send(w)
 	if err != nil {
 		return
 	}
-	json.Unmarshal([]byte(res.Result), &services)
+	if resp.Error.Code != 0 {
+		return services, fmt.Errorf("Zabbix Server returned error: %d - %s; %s", resp.Error.Code, resp.Error.Message, resp.Error.Data)
+	}
+	err = json.Unmarshal([]byte(resp.Result), &services)
+	if err != nil {
+		return services, fmt.Errorf("Error while unmarshalling response json - %s", err.Error())
+	}
 	return
 }
 
 //func (s *Service) GetSLA(params map[string]interface{}) () {}
-
+// CreateService creates service and returns ID of it
 func (w *APIWrapper) CreateService(s Service) (int, error) {
 	req := requestConstruct("service.create")
-	params := structs.Map(s)
+	params := make(map[string]interface{})
+	params["name"] = s.Name
+	params["algorithm"] = s.Algorithm
+	params["showsla"] = s.ShowSLA
+	params["goodsla"] = s.GoodSLA
+	params["sortorder"] = s.SortOrder
 	req.Params = params
-	fmt.Printf("%+v\n", req)
-	return 0, nil
+	resp, err := req.Send(w)
+	if err != nil {
+		return 0, err
+	}
+	if resp.Error.Code != 0 {
+		return 0, fmt.Errorf("Zabbix Server returned error: %d - %s; %s", resp.Error.Code, resp.Error.Message, resp.Error.Data)
+	}
+	resultMap := make(map[string][]int)
+	err = json.Unmarshal(resp.Result, &resultMap)
+	if err != nil {
+		return 0, fmt.Errorf("Error while unmarshalling response json - %s", err.Error())
+	}
+	if len(resultMap["serviceids"]) == 0 {
+		return 0, fmt.Errorf("Error - no service IDs were returned")
+	}
+	return resultMap["serviceids"][0], nil
 }
