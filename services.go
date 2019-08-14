@@ -81,6 +81,7 @@ func (w *APIWrapper) CreateService(s Service) (int, error) {
 		return 0, fmt.Errorf("Zabbix Server returned error: %d - %s; %s", resp.Error.Code, resp.Error.Message, resp.Error.Data)
 	}
 	resultMap := make(map[string][]int)
+	fmt.Printf("%+v\n", string(resp.Result))
 	err = json.Unmarshal(resp.Result, &resultMap)
 	if err != nil {
 		return 0, fmt.Errorf("Error while unmarshalling response json - %s", err.Error())
