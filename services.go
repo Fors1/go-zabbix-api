@@ -2,7 +2,6 @@ package zabbix
 
 import (
 	"encoding/json"
-	"fmt"
 )
 
 // Service Zabbix object
@@ -52,7 +51,6 @@ func (w *APIWrapper) GetServices(params map[string]interface{}) (services []Serv
 	if err != nil {
 		return
 	}
-	fmt.Println(res.Result)
 	json.Unmarshal([]byte(res.Result), &services)
 	return
 }
