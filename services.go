@@ -3,6 +3,7 @@ package zabbix
 import (
 	"encoding/json"
 	"fmt"
+	"strconv"
 )
 
 // Service Zabbix object
@@ -80,7 +81,7 @@ func (w *APIWrapper) CreateService(s Service) (int, error) {
 	if resp.Error.Code != 0 {
 		return 0, fmt.Errorf("Zabbix Server returned error: %d - %s; %s", resp.Error.Code, resp.Error.Message, resp.Error.Data)
 	}
-	resultMap := make(map[string][]int)
+	resultMap := make(map[string][]string)
 	fmt.Printf("%+v\n", string(resp.Result))
 	err = json.Unmarshal(resp.Result, &resultMap)
 	if err != nil {
@@ -89,5 +90,9 @@ func (w *APIWrapper) CreateService(s Service) (int, error) {
 	if len(resultMap["serviceids"]) == 0 {
 		return 0, fmt.Errorf("Error - no service IDs were returned")
 	}
-	return resultMap["serviceids"][0], nil
+	serviceID, err := strconv.Atoi(resultMap["serviceids"][0])
+	if err != nil {
+		return 0, fmt.Errorf("Error while parsing created service ID returned by Zabbix - %s", err.Error())
+	}
+	return serviceID, nil
 }
