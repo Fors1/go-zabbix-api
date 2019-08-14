@@ -74,11 +74,13 @@ func (w *APIWrapper) CreateService(s Service, triggerIDs []int) (int, error) {
 	params["showsla"] = s.ShowSLA
 	params["goodsla"] = s.GoodSLA
 	params["sortorder"] = s.SortOrder
-	triggerIDsString := make([]string, len(triggerIDs)) // Convert int IDs to string ones, according to Zabbix Documentation
-	for _, i := range triggerIDs {
-		triggerIDsString = append(triggerIDsString, strconv.Itoa(i))
+	if len(triggerIDs) > 0 {
+		triggerIDsString := make([]string, len(triggerIDs)) // Convert int IDs to string ones, according to Zabbix Documentation
+		for _, i := range triggerIDs {
+			triggerIDsString = append(triggerIDsString, strconv.Itoa(i))
+		}
+		params["triggerid"] = triggerIDsString
 	}
-	params["triggerid"] = triggerIDsString
 	req.Params = params
 	resp, err := req.Send(w)
 	if err != nil {
