@@ -64,7 +64,7 @@ type HostParams struct {
 	ProxyIDs               []string               `json:"proxyids,omitempty"`
 	TemplatedHosts         bool                   `json:"templated_hosts,omitempty"`
 	TemplateIDs            []string               `json:"templateids,omitempty"`
-	TriggerIDs             []string               `json:"triggerids"`
+	TriggerIDs             []string               `json:"triggerids,omitempty"`
 	WithItems              bool                   `json:"with_items,omitempty"`
 	WithApplications       bool                   `json:"with_applications,omitempty"`
 	WithGraphs             bool                   `json:"with_graphs,omitempty"`
@@ -80,10 +80,21 @@ type HostParams struct {
 	Filter                 map[string]interface{} `json:"filter,omitempty"`
 }
 
-func (w *APIWrapper) GetHost(hostParams HostParams) {
-	//req := requestConstruct("host.get")
-	b, _ := json.Marshal(hostParams)
-	params := make(map[string]interface{})
-	json.Unmarshal(b, &params)
-	fmt.Printf("%+v\n", params)
+// GetHost returns host object from zabbix
+func (w *APIWrapper) GetHost(hostParams HostParams) (Host, error) {
+	req := requestConstruct("host.get")
+	b, _ := json.Marshal(hostParams)       //
+	params := make(map[string]interface{}) // this is to convert HostParams to map[string]interface{}. ugly but working
+	json.Unmarshal(b, &params)             //
+	req.Params = params
+	resp, err := req.Send(w)
+	if err != nil {
+		return Host{}, fmt.Errorf("Error while sending request to zabbix - %s", err.Error())
+	}
+	if resp.Error.Code != 0 {
+		return Host{}, fmt.Errorf("Zabbix Server returned error: %d - %s; %s", resp.Error.Code, resp.Error.Message, resp.Error.Data)
+	}
+	host := Host{}
+	err = json.Unmarshal(resp.Result, &host)
+	return host, nil
 }
