@@ -92,7 +92,7 @@ type HostParams struct {
 	SelectMacros           map[string]interface{} `json:"selectMacros,omitempty"`
 	SelectParentTemplates  map[string]interface{} `json:"selectParentTemplates,omitempty"`
 	SelectScreens          map[string]interface{} `json:"selectScreens,omitempty"`
-	SelectTriggers         map[string]interface{} `json:"selectTriggers,omitempty"`
+	SelectTriggers         []string               `json:"selectTriggers,omitempty"`
 	LimitSelects           uint                   `json:"limitSelects,omitempty"`
 	Search                 map[string]interface{} `json:"search,omitempty"`
 	SearchInventory        map[string]interface{} `json:"searchInventory,omitempty"`
