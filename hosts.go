@@ -3,49 +3,48 @@ package zabbix
 import (
 	"encoding/json"
 	"fmt"
-	"time"
 )
 
 // Host is host object in Zabbix
 type Host struct {
-	HostID            string    `json:"hostid"` //RO
-	Host              string    `json:"host"`
-	Available         uint8     `json:"available"` //RO
-	Description       string    `json:"description"`
-	DisableUntil      time.Time `json:"disable_until"`  //RO
-	Error             string    `json:"error"`          //RO
-	ErrorsFrom        time.Time `json:"errors_from"`    //RO
-	Flags             uint8     `json:"flags"`          //RO
-	InventoryMode     int8      `json:"inventory_mode"` //WO
-	IPMIAuthType      int8      `json:"ipmi_authtype"`
-	IPMIAvailable     uint8     `json:"ipmi_available"`     //RO
-	IPMIDisableUntil  time.Time `json:"ipmi_disable_until"` //RO
-	IPMIError         string    `json:"ipmi_error"`         //RO
-	IPMIErrorsFrom    time.Time `json:"ipmi_errors_from"`   //RO
-	IPMIPassword      string    `json:"ipmi_password"`
-	IPMIPrivilege     uint8     `json:"ipmi_privilege"`
-	IPMIUsername      string    `json:"ipmi_username"`
-	JMXAvailable      string    `json:"jmx_available"`      //RO
-	JMXDisableUntil   time.Time `json:"jmx_disable_until"`  //RO
-	JMXError          string    `json:"jmx_error"`          //RO
-	JMXErrorsFrom     time.Time `json:"jmx_errors_from"`    //RO
-	MaintenanceFrom   time.Time `json:"maintenance_from"`   //RO
-	MaintenanceStatus uint8     `json:"maintenance_status"` //RO
-	MaintenanceType   uint8     `json:"maintenance_type"`   //RO
-	MaintenanceID     string    `json:"maintenanceid"`      // RO
-	Name              string    `json:"name"`
-	ProxyHostID       string    `json:"proxy_hostid"`
-	SNMPAvailable     uint8     `json:"snmp_available"`     //RO
-	SNMPDisableUntil  time.Time `json:"snmp_disable_until"` //RO
-	SNMPError         string    `json:"snmp_error"`         //RO
-	SNMPErrorsFrom    time.Time `json:"snmp_errors_from"`   //RO
-	Status            uint8     `json:"status"`
-	TLSConnect        uint8     `json:"tls_connect"`
-	TLSAccept         uint8     `json:"tls_accept"`
-	TLSIssuer         string    `json:"tls_issuer"`
-	TLSSubject        string    `json:"tls_subject"`
-	TLSPSKIdentity    string    `json:"tls_psk_identity"`
-	TLSPSK            string    `json:"tls_psk"`
+	HostID            string `json:"hostid"` //RO
+	Host              string `json:"host"`
+	Available         uint8  `json:"available"` //RO
+	Description       string `json:"description"`
+	DisableUntil      uint64 `json:"disable_until"`  //RO
+	Error             string `json:"error"`          //RO
+	ErrorsFrom        uint64 `json:"errors_from"`    //RO
+	Flags             uint8  `json:"flags"`          //RO
+	InventoryMode     int8   `json:"inventory_mode"` //WO
+	IPMIAuthType      int8   `json:"ipmi_authtype"`
+	IPMIAvailable     uint8  `json:"ipmi_available"`     //RO
+	IPMIDisableUntil  uint64 `json:"ipmi_disable_until"` //RO
+	IPMIError         string `json:"ipmi_error"`         //RO
+	IPMIErrorsFrom    uint64 `json:"ipmi_errors_from"`   //RO
+	IPMIPassword      string `json:"ipmi_password"`
+	IPMIPrivilege     uint8  `json:"ipmi_privilege"`
+	IPMIUsername      string `json:"ipmi_username"`
+	JMXAvailable      string `json:"jmx_available"`      //RO
+	JMXDisableUntil   uint64 `json:"jmx_disable_until"`  //RO
+	JMXError          string `json:"jmx_error"`          //RO
+	JMXErrorsFrom     uint64 `json:"jmx_errors_from"`    //RO
+	MaintenanceFrom   uint64 `json:"maintenance_from"`   //RO
+	MaintenanceStatus uint8  `json:"maintenance_status"` //RO
+	MaintenanceType   uint8  `json:"maintenance_type"`   //RO
+	MaintenanceID     string `json:"maintenanceid"`      // RO
+	Name              string `json:"name"`
+	ProxyHostID       string `json:"proxy_hostid"`
+	SNMPAvailable     uint8  `json:"snmp_available"`     //RO
+	SNMPDisableUntil  uint64 `json:"snmp_disable_until"` //RO
+	SNMPError         string `json:"snmp_error"`         //RO
+	SNMPErrorsFrom    uint64 `json:"snmp_errors_from"`   //RO
+	Status            uint8  `json:"status"`
+	TLSConnect        uint8  `json:"tls_connect"`
+	TLSAccept         uint8  `json:"tls_accept"`
+	TLSIssuer         string `json:"tls_issuer"`
+	TLSSubject        string `json:"tls_subject"`
+	TLSPSKIdentity    string `json:"tls_psk_identity"`
+	TLSPSK            string `json:"tls_psk"`
 }
 
 // HostParams describe supported parameters for hosts
