@@ -74,7 +74,9 @@ func (w *APIWrapper) CreateService(s Service) (int, error) {
 	params["showsla"] = s.ShowSLA
 	params["goodsla"] = s.GoodSLA
 	params["sortorder"] = s.SortOrder
-	params["triggerid"] = s.TriggerID
+	if s.TriggerID != "" {
+		params["triggerid"] = s.TriggerID
+	}
 	req.Params = params
 	resp, err := req.Send(w)
 	if err != nil {
