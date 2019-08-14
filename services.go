@@ -66,7 +66,7 @@ func (w *APIWrapper) GetServices(params map[string]interface{}) (services []Serv
 //func (s *Service) GetSLA(params map[string]interface{}) () {}
 
 // CreateService creates service and returns ID of it
-func (w *APIWrapper) CreateService(s Service) (int, error) {
+func (w *APIWrapper) CreateService(s Service, triggerIDs []int) (int, error) {
 	req := requestConstruct("service.create")
 	params := make(map[string]interface{})
 	params["name"] = s.Name
@@ -74,6 +74,11 @@ func (w *APIWrapper) CreateService(s Service) (int, error) {
 	params["showsla"] = s.ShowSLA
 	params["goodsla"] = s.GoodSLA
 	params["sortorder"] = s.SortOrder
+	triggerIDsString := make([]string, len(triggerIDs)) // Convert int IDs to string ones, according to Zabbix Documentation
+	for _, i := range triggerIDs {
+		triggerIDsString = append(triggerIDsString, strconv.Itoa(i))
+	}
+	params["triggerid"] = triggerIDsString
 	req.Params = params
 	resp, err := req.Send(w)
 	if err != nil {
@@ -83,7 +88,6 @@ func (w *APIWrapper) CreateService(s Service) (int, error) {
 		return 0, fmt.Errorf("Zabbix Server returned error: %d - %s; %s", resp.Error.Code, resp.Error.Message, resp.Error.Data)
 	}
 	resultMap := make(map[string][]string)
-	fmt.Printf("%+v\n", string(resp.Result))
 	err = json.Unmarshal(resp.Result, &resultMap)
 	if err != nil {
 		return 0, fmt.Errorf("Error while unmarshalling response json - %s", err.Error())
