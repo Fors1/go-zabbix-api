@@ -94,6 +94,7 @@ func (w *APIWrapper) GetHost(hostParams HostParams) (Host, error) {
 	if resp.Error.Code != 0 {
 		return Host{}, fmt.Errorf("Zabbix Server returned error: %d - %s; %s", resp.Error.Code, resp.Error.Message, resp.Error.Data)
 	}
+	fmt.Printf("%+v", resp)
 	host := Host{}
 	err = json.Unmarshal(resp.Result, &host)
 	return host, nil
