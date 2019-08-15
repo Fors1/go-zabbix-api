@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"net/http"
+	"reflect"
 )
 
 type genericRequest struct {
@@ -60,4 +61,28 @@ func (req *genericRequest) Send(w *APIWrapper) (resp genericResponse, err error)
 		return
 	}
 	return
+}
+
+// ConvertParamsToMap accepts struct or map and converts it into map[string]interface{} to put it into generic request
+func ConvertParamsToMap(params interface{}) (map[string]interface{}, error) {
+	result := make(map[string]interface{})
+	switch reflect.TypeOf(params).Kind() {
+	case reflect.Struct:
+		val := reflect.ValueOf(&params).Elem()
+		for i := 0; i < val.NumField(); i++ {
+			k := val.Type().Field(i).Name
+			v := val.Field(i).Interface()
+			result[k] = v
+		}
+	case reflect.Map:
+		iter := reflect.ValueOf(params).MapRange()
+		for iter.Next() {
+			k := iter.Key().String()
+			v := iter.Value().Interface()
+			result[k] = v
+		}
+	default:
+		return nil, fmt.Errorf("Error: params is not map or struct")
+	}
+	return result, nil
 }

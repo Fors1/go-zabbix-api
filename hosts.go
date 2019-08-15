@@ -126,5 +126,8 @@ func (w *APIWrapper) GetHost(hostParams HostParams) ([]Host, error) {
 	fmt.Printf("%+v\n", string(resp.Result))
 	host := []Host{}
 	err = json.Unmarshal(resp.Result, &host)
+	if err != nil {
+		return []Host{}, fmt.Errorf("Error while unmarshalling response json - %s", err.Error())
+	}
 	return host, nil
 }
