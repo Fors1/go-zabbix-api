@@ -92,7 +92,9 @@ type TriggerParams struct {
 
 // GetTrigger retrievs trigger objects from Zabbix
 func (w *APIWrapper) GetTrigger(triggerParams TriggerParams) ([]Trigger, error) {
-	params := convertStructToMap(&triggerParams)
+	b, _ := json.Marshal(triggerParams)    //
+	params := make(map[string]interface{}) // this is to convert HostParams to map[string]interface{}. ugly but working
+	json.Unmarshal(b, &params)             //
 	req := requestConstruct("trigger.get")
 	req.Params = params
 	resp, err := req.Send(w)
