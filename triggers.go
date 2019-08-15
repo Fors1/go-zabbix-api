@@ -12,20 +12,20 @@ type Trigger struct {
 	Expression         string `json:"expression"`
 	Comments           string `json:"comments"`
 	Error              string `json:"error"`
-	Flags              uint8  `json:"flags"`
-	LastChange         uint64 `json:"lastchange"`
-	Priority           uint8  `json:"priority"`
-	State              uint8  `json:"state"`
+	Flags              string `json:"flags"`
+	LastChange         string `json:"lastchange"`
+	Priority           string `json:"priority"`
+	State              string `json:"state"`
 	Status             string `json:"status"`
 	TemplateID         string `json:"templateid"`
-	Type               uint8  `json:"type"`
+	Type               string `json:"type"`
 	URL                string `json:"url"`
-	Value              uint8  `json:"value"`
-	RecoveryMode       uint8  `json:"recovery_mode"`
+	Value              string `json:"value"`
+	RecoveryMode       string `json:"recovery_mode"`
 	RecoveryExpression string `json:"recovery_expression"`
-	CorrelationMode    uint8  `json:"correlation_mode"`
+	CorrelationMode    string `json:"correlation_mode"`
 	CorrelationTag     string `json:"correlation_tag"`
-	ManualClose        uint8  `json:"manual_close"`
+	ManualClose        string `json:"manual_close"`
 }
 
 //TriggerTag is trigger tag object from Zabbix
