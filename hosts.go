@@ -9,43 +9,43 @@ import (
 type Host struct {
 	HostID            string `json:"hostid"` //RO
 	Host              string `json:"host"`
-	Available         uint8  `json:"available"` //RO
+	Available         string `json:"available"` //RO
 	Description       string `json:"description"`
-	DisableUntil      uint64 `json:"disable_until"`  //RO
+	DisableUntil      string `json:"disable_until"`  //RO
 	Error             string `json:"error"`          //RO
-	ErrorsFrom        uint64 `json:"errors_from"`    //RO
-	Flags             uint8  `json:"flags"`          //RO
-	InventoryMode     int8   `json:"inventory_mode"` //WO
-	IPMIAuthType      int8   `json:"ipmi_authtype"`
-	IPMIAvailable     uint8  `json:"ipmi_available"`     //RO
-	IPMIDisableUntil  uint64 `json:"ipmi_disable_until"` //RO
+	ErrorsFrom        string `json:"errors_from"`    //RO
+	Flags             string `json:"flags"`          //RO
+	InventoryMode     string `json:"inventory_mode"` //WO
+	IPMIAuthType      string `json:"ipmi_authtype"`
+	IPMIAvailable     string `json:"ipmi_available"`     //RO
+	IPMIDisableUntil  string `json:"ipmi_disable_until"` //RO
 	IPMIError         string `json:"ipmi_error"`         //RO
-	IPMIErrorsFrom    uint64 `json:"ipmi_errors_from"`   //RO
+	IPMIErrorsFrom    string `json:"ipmi_errors_from"`   //RO
 	IPMIPassword      string `json:"ipmi_password"`
-	IPMIPrivilege     uint8  `json:"ipmi_privilege"`
+	IPMIPrivilege     string `json:"ipmi_privilege"`
 	IPMIUsername      string `json:"ipmi_username"`
 	JMXAvailable      string `json:"jmx_available"`      //RO
-	JMXDisableUntil   uint64 `json:"jmx_disable_until"`  //RO
+	JMXDisableUntil   string `json:"jmx_disable_until"`  //RO
 	JMXError          string `json:"jmx_error"`          //RO
-	JMXErrorsFrom     uint64 `json:"jmx_errors_from"`    //RO
-	MaintenanceFrom   uint64 `json:"maintenance_from"`   //RO
-	MaintenanceStatus uint8  `json:"maintenance_status"` //RO
-	MaintenanceType   uint8  `json:"maintenance_type"`   //RO
+	JMXErrorsFrom     string `json:"jmx_errors_from"`    //RO
+	MaintenanceFrom   string `json:"maintenance_from"`   //RO
+	MaintenanceStatus string `json:"maintenance_status"` //RO
+	MaintenanceType   string `json:"maintenance_type"`   //RO
 	MaintenanceID     string `json:"maintenanceid"`      // RO
 	Name              string `json:"name"`
 	ProxyHostID       string `json:"proxy_hostid"`
-	SNMPAvailable     uint8  `json:"snmp_available"`     //RO
-	SNMPDisableUntil  uint64 `json:"snmp_disable_until"` //RO
+	SNMPAvailable     string `json:"snmp_available"`     //RO
+	SNMPDisableUntil  string `json:"snmp_disable_until"` //RO
 	SNMPError         string `json:"snmp_error"`         //RO
-	SNMPErrorsFrom    uint64 `json:"snmp_errors_from"`   //RO
-	Status            uint8  `json:"status"`
-	TLSConnect        uint8  `json:"tls_connect"`
-	TLSAccept         uint8  `json:"tls_accept"`
+	SNMPErrorsFrom    string `json:"snmp_errors_from"`   //RO
+	Status            string `json:"status"`
+	TLSConnect        string `json:"tls_connect"`
+	TLSAccept         string `json:"tls_accept"`
 	TLSIssuer         string `json:"tls_issuer"`
 	TLSSubject        string `json:"tls_subject"`
 	TLSPSKIdentity    string `json:"tls_psk_identity"`
 	TLSPSK            string `json:"tls_psk"`
-	AutoCompress      uint8  `json:"auto_compress"`
+	AutoCompress      string `json:"auto_compress"`
 }
 
 // HostParams describe supported parameters for hosts
@@ -123,7 +123,6 @@ func (w *APIWrapper) GetHost(hostParams HostParams) ([]Host, error) {
 	if resp.Error.Code != 0 {
 		return []Host{}, fmt.Errorf("Zabbix Server returned error: %d - %s; %s", resp.Error.Code, resp.Error.Message, resp.Error.Data)
 	}
-	fmt.Printf("%+v\n", string(resp.Result))
 	host := []Host{}
 	err = json.Unmarshal(resp.Result, &host)
 	if err != nil {
