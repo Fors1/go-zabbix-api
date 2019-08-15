@@ -9,12 +9,12 @@ import (
 // Service Zabbix object
 type Service struct {
 	ServiceID    string              `json:"serviceid"`
-	Algorithm    uint8               `json:"algorithm"`
+	Algorithm    string              `json:"algorithm"`
 	Name         string              `json:"name"`
-	ShowSLA      uint8               `json:"showsla"`
-	SortOrder    uint16              `json:"sortorder"`
-	GoodSLA      float32             `json:"goodsla"`
-	Status       uint8               `json:"status"`
+	ShowSLA      string              `json:"showsla"`
+	SortOrder    string              `json:"sortorder"`
+	GoodSLA      string              `json:"goodsla"`
+	Status       string              `json:"status"`
 	TriggerID    string              `json:"triggerid"`
 	Dependencies []ServiceDependency `json:"dependencies"`
 }
