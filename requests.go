@@ -68,7 +68,7 @@ func ConvertParamsToMap(params interface{}) (map[string]interface{}, error) {
 	result := make(map[string]interface{})
 	switch reflect.TypeOf(params).Kind() {
 	case reflect.Struct:
-		val := reflect.ValueOf(&params).Elem()
+		val := reflect.ValueOf(params).Elem()
 		for i := 0; i < val.NumField(); i++ {
 			k := val.Type().Field(i).Name
 			v := val.Field(i).Interface()
