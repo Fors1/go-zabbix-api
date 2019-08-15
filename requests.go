@@ -74,21 +74,13 @@ func convertStructToMap(s interface{}) map[string]interface{} {
 	return result
 }
 
-// ConvertParamsToMap accepts struct or map and converts it into map[string]interface{} to put it into generic request
-func ConvertParamsToMap(params interface{}) (map[string]interface{}, error) {
+func convertMapToMap(m interface{}) map[string]interface{} {
 	result := make(map[string]interface{})
-	switch reflect.TypeOf(params).Kind() {
-	case reflect.Struct:
-		result = convertStructToMap(&params)
-	case reflect.Map:
-		iter := reflect.ValueOf(params).MapRange()
-		for iter.Next() {
-			k := iter.Key().String()
-			v := iter.Value().Interface()
-			result[k] = v
-		}
-	default:
-		return nil, fmt.Errorf("Error: params is not map or struct")
+	iter := reflect.ValueOf(m).MapRange()
+	for iter.Next() {
+		k := iter.Key().String()
+		v := iter.Value().Interface()
+		result[k] = v
 	}
-	return result, nil
+	return result
 }
