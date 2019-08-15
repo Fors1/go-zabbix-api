@@ -16,7 +16,7 @@ type Trigger struct {
 	LastChange         uint64 `json:"lastchange"`
 	Priority           uint8  `json:"priority"`
 	State              uint8  `json:"state"`
-	Status             uint8  `json:"status"`
+	Status             string `json:"status"`
 	TemplateID         string `json:"templateid"`
 	Type               uint8  `json:"type"`
 	URL                string `json:"url"`
