@@ -109,5 +109,5 @@ func (w *APIWrapper) GetTrigger(triggerParams TriggerParams) ([]Trigger, error) 
 	if err != nil {
 		return []Trigger{}, fmt.Errorf("Error while unmarshalling response json - %s", err.Error())
 	}
-	return []Trigger{}, nil
+	return t, nil
 }
