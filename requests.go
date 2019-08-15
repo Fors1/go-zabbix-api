@@ -43,6 +43,7 @@ func (req *genericRequest) Send(w *APIWrapper) (resp genericResponse, err error)
 		err = fmt.Errorf("Error while marshalling request: %s", err.Error())
 		return
 	}
+	fmt.Println(string(reqJSON))
 	r := bytes.NewReader(reqJSON)
 	httpResp, err := http.Post(w.Address, "application/json-rpc", r)
 	if err != nil {
