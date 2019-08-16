@@ -90,8 +90,8 @@ type TriggerParams struct {
 	StartSearch                 bool                   `json:"startSearch,omitempty"`
 }
 
-// GetTrigger retrievs trigger objects from Zabbix
-func (w *APIWrapper) GetTrigger(triggerParams TriggerParams) ([]Trigger, error) {
+// TriggersGet retrievs trigger objects from Zabbix
+func (w *APIWrapper) TriggersGet(triggerParams TriggerParams) ([]Trigger, error) {
 	b, _ := json.Marshal(triggerParams)    //
 	params := make(map[string]interface{}) // this is to convert HostParams to map[string]interface{}. ugly but working
 	json.Unmarshal(b, &params)             //

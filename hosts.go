@@ -109,8 +109,8 @@ type HostParams struct {
 	StartSearch            bool                   `json:"startSearch,omitempty"`
 }
 
-// GetHost returns host object from zabbix
-func (w *APIWrapper) GetHost(hostParams HostParams) ([]Host, error) {
+// HostsGet returns host object from zabbix
+func (w *APIWrapper) HostsGet(hostParams HostParams) ([]Host, error) {
 	req := requestConstruct("host.get")
 	b, _ := json.Marshal(hostParams)       //
 	params := make(map[string]interface{}) // this is to convert HostParams to map[string]interface{}. ugly but working

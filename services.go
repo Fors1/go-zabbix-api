@@ -45,8 +45,8 @@ type ServiceAlarm struct {
 	Value          uint8  `json:"value"`
 }
 
-// GetServices gets zabbix IT Services
-func (w *APIWrapper) GetServices(params map[string]interface{}) (services []Service, err error) {
+// ServicesGet gets zabbix IT Services
+func (w *APIWrapper) ServicesGet(params map[string]interface{}) (services []Service, err error) {
 	req := requestConstruct("service.get")
 	req.Params = params
 	resp, err := req.Send(w)
@@ -65,8 +65,8 @@ func (w *APIWrapper) GetServices(params map[string]interface{}) (services []Serv
 
 //func (s *Service) GetSLA(params map[string]interface{}) () {}
 
-// CreateService creates service and returns ID of it
-func (w *APIWrapper) CreateService(s Service) (int, error) {
+// ServiceCreate creates service and returns ID of it
+func (w *APIWrapper) ServiceCreate(s Service) (int, error) {
 	req := requestConstruct("service.create")
 	params := make(map[string]interface{})
 	params["name"] = s.Name
@@ -100,8 +100,8 @@ func (w *APIWrapper) CreateService(s Service) (int, error) {
 	return serviceID, nil
 }
 
-//AddDependency links one service to another one
-func (w *APIWrapper) AddDependency(parentServiceID, childServiceID, soft int) error {
+//ServiceAddDependency links one service to another one
+func (w *APIWrapper) ServiceAddDependency(parentServiceID, childServiceID, soft int) error {
 	req := requestConstruct("service.adddependencies")
 	params := make(map[string]interface{})
 	params["serviceid"] = strconv.Itoa(parentServiceID) // Convert to string because zabbix accepts this parameters as strings
